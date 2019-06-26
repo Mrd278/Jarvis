@@ -6,8 +6,9 @@ import webbrowser
 import os
 import random
 import smtplib
+import roman
 
-
+numbers = {'hundred':100, 'thousand':1000, 'lakh':100000}
 a = {'mridul':'mridul27gupta@gmail.com'}
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -51,7 +52,7 @@ def takeCommand():
     with sr.Microphone() as source:
         print("Listening...")
         r.pause_threshold = 1
-        r.energy_threshold = 400
+        r.energy_threshold = 1000
         audio = r.listen(source)
     try:
         print("Recognizing...")
@@ -66,7 +67,7 @@ if __name__ == "__main__":
     wishme()
     while True:
         query = takeCommand().lower()
-        if 'quit' in query:
+        if 'exit' in query:
             speak("Bye sir")
             print("Bye sir")
             break
@@ -75,26 +76,37 @@ if __name__ == "__main__":
             if 'open wikipedia' in query:
                 webbrowser.open('wikipedia.com')
             else:
-                speak("searching wikipedia")
-                query = query.replace("wikipedia", "")
-                results = wikipedia.summary(query, sentences=2)
-                speak("According to wikipedia")
-                print(results)
-                speak(results)
+                try:
+                    speak("searching wikipedia")
+                    query = query.replace("wikipedia", "")
+                    results = wikipedia.summary(query, sentences=2)
+                    speak("According to wikipedia")
+                    print(results)
+                    speak(results)
+                except Exception as e:
+                    speak('sorry sir could not find any results')
 
         elif 'open youtube' in query:
+            speak('opening Youtube')
             webbrowser.open("youtube.com")
 
+        elif 'open course error' in query:
+            speak('opening course era')
+            webbrowser.open("coursera.com")
+
         elif 'open google' in query:
+            speak('opening google')
             webbrowser.open("google.com")
 
         elif 'hello' in query:
             speak("Hello Sir")
 
         elif 'open stackoverflow' in query:
+            speak('opening stackoverflow')
             webbrowser.open('stackoverflow.com')
 
         elif ('play music' in query) or ('change music' in query):
+            speak('Here are your favorites')
             music_dir = 'D:\My Music'
             songs = os.listdir(music_dir)
             n = random.randint(0, 27)
@@ -104,6 +116,11 @@ if __name__ == "__main__":
             strtime = datetime.datetime.now().strftime("%H:%M:%S")
             speak("Sir the time is %s" %strtime)
             print("Sir the time is %s" % strtime)
+
+        elif 'the date' in query:
+            strdate = datetime.datetime.today().strftime("%d %m %y")
+            speak("Sir today's date is %s" %strdate)
+            print("Sir today's date is %s" %strdate)
 
         elif 'thank you' in query:
             speak("Welcome Sir")
@@ -118,6 +135,10 @@ if __name__ == "__main__":
             speak("opening V L C media player")
             path = "C:\\Program Files\\VideoLAN\\VLC\\vlc.exe"
             os.startfile(path)
+
+        elif 'your name' in query:
+            speak('myself Jarvis sir')
+
 
         elif 'open pycharm' in query:
             speak("Opening Pycharm")
@@ -140,4 +161,38 @@ if __name__ == "__main__":
             except Exception as e:
                 print(e)
                 speak('Sorry! I was not able to send this email')
-b = input()
+		
+        elif "open python" in query:
+            speak('opening python Ide')
+            os.startfile('C:\\Users\\mridu\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Python 3.7\\IDLE (Python 3.7 64-bit)')
+
+        elif 'open code blocks' in query:
+            speak('opening Codeblocks')
+            os.startfile("C:\\Program Files (x86)\\CodeBlocks\\codeblocks.exe")
+
+        elif 'open anaconda' in query:
+            speak('opening anaconda')
+            os.startfile("C:\\Users\\mridu\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Anaconda3 (64-bit)\\Anaconda Navigator")
+
+        elif 'calculation' in query:
+            sum = 0
+            speak('Yes Sir, please tell the numbers')
+            while True:
+                query = takeCommand()
+                if 'answer' in query:
+                    speak('here is result'+str(sum))
+                    print(sum)
+                    break
+                elif query:
+                    if query == 'x**':
+                        digit = 30
+                    elif query in numbers:
+                        digit = numbers[query]
+                    elif 'x' in query:
+                        query = query.upper()
+                        digit = roman.fromRoman(query)
+                    elif query.isdigit():
+                        digit = int(query)
+                    else:
+                        digit = 0
+                    sum += digit
