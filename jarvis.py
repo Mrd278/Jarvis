@@ -9,7 +9,7 @@ import smtplib
 import roman
 
 numbers = {'hundred':100, 'thousand':1000, 'lakh':100000}
-a = {'mridul':'mridul27gupta@gmail.com'}
+a = {'':''}
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[0].id)
@@ -27,8 +27,8 @@ def sendemail(to, content):
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.ehlo()
     server.starttls()
-    server.login('med6hmaasm@gmail.com', 'hmaasm12345')
-    server.sendmail('med6hmaasm@gmail.com', to, content)
+    server.login('youremail.com', 'password')
+    server.sendmail('youremail@gmail.com', to, content)
     server.close()
 
 '''
