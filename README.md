@@ -1,6 +1,6 @@
 # Jarvis
-Desktop AI
-Well This is Python Desktop Assistant. It can perform mulitiple tasks by just recognizing your voice commands.
+Desktop Assistant,
+ This is Python Desktop Assistant. It can perform mulitiple tasks by just recognizing your voice commands.
 To make this run in your pc/laptop you need to download few dependencies:
   1. pyttsx3
   2. SpeechRecognition
