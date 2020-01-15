@@ -5,6 +5,7 @@ To make this run in your pc/laptop you need to download few dependencies:
   2. SpeechRecognition
   3. Pyaudio
   4. Roman
+  5. OpenCV 
   
   use pip install to download these dependencies
   
